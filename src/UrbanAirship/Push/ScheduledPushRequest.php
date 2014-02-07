@@ -9,7 +9,7 @@ use UrbanAirship\UALog;
 
 class ScheduledPushRequest
 {
-    const SCHEDULE_URL = "/api/schedules/";
+    private $scheduleUrl = "/api/schedules/";
     private $airship;
     private $schedule;
     private $name = null;
@@ -23,6 +23,12 @@ class ScheduledPushRequest
     function setSchedule($schedule)
     {
         $this->schedule = $schedule;
+        return $this;
+    }
+
+    function setScheduleId($id)
+    {
+        $this->scheduleUrl = "/api/schedules/" . $id;
         return $this;
     }
 
@@ -52,7 +58,7 @@ class ScheduledPushRequest
 
     function send()
     {
-        $uri = $this->airship->buildUrl(self::SCHEDULE_URL);
+        $uri = $this->airship->buildUrl($this->scheduleUrl);
         $logger = UALog::getLogger();
         $response = $this->airship->request("POST",
             json_encode($this->getPayload()), $uri, "application/json", 3);
