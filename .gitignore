@@ -7,3 +7,5 @@ data/
 vendor/
 composer.phar
 composer.lock
+
+docs/_themes/urbanairship
